@@ -32,12 +32,29 @@ form {
 
 input {
     padding: 10px;
-    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
-button {
+.register input {
+    margin-bottom: 1px;
+}
+
+.login input {
+    margin-bottom: 15px;
+}
+
+.register button {
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.login button {
     padding: 10px;
     background-color: #007BFF;
     color: white;
@@ -61,4 +78,25 @@ a:hover {
 
 .message {
     margin-bottom: 20px;
+    font-size: 12px; /* Set font size to 12px */
+}
+
+.requirements {
+    font-size: 12px; /* Set font size to 12px */
+    color: #aaa; /* Lighter grey color */
+    margin-bottom: 15px 0; /* Uniform margin for top and bottom */
+    text-align: center; /* Center align the text */
+}
+
+.login .error {
+    color: red;
+    font-size: 12px; /* Set font size to 12px */
+    margin-top: -5px;
+    margin-bottom: 10px;
+}
+
+.register .error {
+    color: red;
+    font-size: 12px; /* Set font size to 12px */
+    margin-bottom: 0px;
 }
