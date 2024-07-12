@@ -173,29 +173,11 @@ func login(c *gin.Context) {
 	username := c.PostForm("username")
 	password := c.PostForm("password")
 
-	var usernameError, passwordError string
-
-	if !validateUsername(username) {
-		usernameError = "Invalid username."
-	}
-
-	if !validatePassword(password) {
-		passwordError = "Invalid password."
-	}
-
-	if usernameError != "" || passwordError != "" {
-		c.HTML(http.StatusBadRequest, "login.html", gin.H{
-			"usernameError": usernameError,
-			"passwordError": passwordError,
-		})
-		return
-	}
-
 	var user User
 	result := db.Where("username = ?", username).First(&user)
 	if result.Error != nil || !checkPasswordHash(password, user.Password) {
 		c.HTML(http.StatusUnauthorized, "login.html", gin.H{
-			"usernameError": "Invalid username or password",
+			"error": "Invalid username or password",
 		})
 		return
 	}
@@ -203,7 +185,7 @@ func login(c *gin.Context) {
 	token, err := generateJWT(username)
 	if err != nil {
 		c.HTML(http.StatusInternalServerError, "login.html", gin.H{
-			"usernameError": "Failed to generate token",
+			"error": "Failed to generate token",
 		})
 		return
 	}

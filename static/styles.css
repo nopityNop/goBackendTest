@@ -88,7 +88,7 @@ a:hover {
     text-align: center; /* Center align the text */
 }
 
-.login .error {
+.login-error {
     color: red;
     font-size: 12px; /* Set font size to 12px */
     margin-top: -5px;
