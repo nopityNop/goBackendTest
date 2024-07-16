@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logged Out</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/logout.css">
     <script>
         setTimeout(function() {
             window.location.href = "/login";
         }, 3000);
     </script>
 </head>
-<body>
-    <div class="container">
-        <h1>You've been logged out</h1>
-        <p>You will be redirected to the login page in a few seconds.</p>
+<body class="logout-body">
+    <div class="logout-container">
+        <h1 class="logout-message">You've been logged out</h1>
+        <p class="logout-redirect">You will be redirected to the login page in a few seconds.</p>
     </div>
 </body>
 </html>

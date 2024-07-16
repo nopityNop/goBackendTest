@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/dashboard.css">
 </head>
-<body>
-    <div class="container">
-        <h1>Welcome, {{ .username }}!</h1>
-        <p>This is your dashboard.</p>
-        <a href="/logout"><button>Logout</button></a>
+<body class="dashboard-body">
+    <div class="dashboard-container">
+        <h1 class="dashboard-welcome">Welcome, {{ .username }}!</h1>
+        <p class="dashboard-text">This is your dashboard.</p>
+        <a href="/logout" class="dashboard-logout-link"><button class="dashboard-logout-button">Logout</button></a>
     </div>
 </body>
 </html>
