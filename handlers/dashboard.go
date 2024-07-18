@@ -12,3 +12,10 @@ func Dashboard(c *gin.Context) {
 		"username": username,
 	})
 }
+
+func ManageAccount(c *gin.Context) {
+	username := c.MustGet("username").(string)
+	c.HTML(http.StatusOK, "manage-account.html", gin.H{
+		"username": username,
+	})
+}

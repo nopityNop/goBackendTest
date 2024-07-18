@@ -32,6 +32,7 @@ func main() {
 	})
 	r.POST("/login", handlers.Login)
 	r.GET("/dashboard", middleware.AuthenticateJWT(), handlers.Dashboard)
+	r.GET("/manage-account", middleware.AuthenticateJWT(), handlers.ManageAccount)
 	r.GET("/logout", handlers.Logout)
 
 	r.Run(":8080")

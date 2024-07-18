@@ -7,10 +7,20 @@
     <link rel="stylesheet" href="/static/dashboard.css">
 </head>
 <body class="dashboard-body">
-    <div class="dashboard-container">
-        <h1 class="dashboard-welcome">Welcome, {{ .username }}!</h1>
-        <p class="dashboard-text">This is your dashboard.</p>
-        <a href="/logout" class="dashboard-logout-link"><button class="dashboard-logout-button">Logout</button></a>
+    <div class="dashboard-header">
+        <button class="dashboard-account-button" onclick="toggleMenu()">{{ .username }}!</button>
+        <div id="dashboard-account-dropdown" class="dashboard-account-dropdown">
+            <a href="/dashboard" class="dashboard-account-link">Home</a>
+            <a href="/manage-account" class="dashboard-account-link">Manage Account</a>
+            <a href="/logout" class="dashboard-account-link">Log out</a>
+
+        </div>
     </div>
+    <script>
+        function toggleMenu() {
+            var dropdown = document.getElementById("dashboard-account-dropdown");
+            dropdown.classList.toggle("show");
+        }
+    </script>
 </body>
 </html>

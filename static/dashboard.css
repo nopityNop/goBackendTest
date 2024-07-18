@@ -5,40 +5,67 @@ body.dashboard-body {
     background-color: #f4f4f9;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
+    position: relative;
 }
 
-.dashboard-container {
-    background: #fff;
+.dashboard-header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    width: 300px;
-    text-align: center;
+    box-sizing: border-box;
+    position: fixed; /* Changed from absolute to fixed */
+    top: 0;
+    right: 0;
+    z-index: 1000; /* Ensure the header is above other content */
 }
 
-.dashboard-welcome {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-.dashboard-text {
-    font-size: 16px;
-    margin-bottom: 20px;
-}
-
-.dashboard-logout-button {
-    padding: 10px;
+.dashboard-account-button {
     background-color: #007BFF;
     color: white;
     border: none;
     border-radius: 4px;
+    padding: 10px;
     cursor: pointer;
+    font-size: 16px; /* Updated font size */
+    width: 150px; /* Set a fixed width */
+    box-sizing: border-box; /* Ensure padding is included in the width */
+    text-align: center; /* Center the text */
 }
 
-.dashboard-logout-button:hover {
+.dashboard-account-button:hover {
     background-color: #0056b3;
+}
+
+.dashboard-account-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    z-index: 1001;
+    width: 150px; /* Ensure the dropdown width matches the button */
+    box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+.dashboard-account-link {
+    color: black;
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+    font-size: 10px; /* Updated font size */
+    width: 100%; /* Ensure the link takes full width of the dropdown */
+    box-sizing: border-box; /* Ensure padding is included in the width */
+    text-align: center; /* Center the text */
+}
+
+.dashboard-account-link:hover {
+    background-color: #f1f1f1;
+}
+
+.show {
+    display: block;
 }

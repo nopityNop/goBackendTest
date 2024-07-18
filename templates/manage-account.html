@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Account</title>
+    <link rel="stylesheet" href="/static/dashboard.css">
+    <style>
+        .account-info-box {
+            width: 360px;
+            margin: 100px auto 0; /* Adjust margin for proper positioning */
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            text-align: center;
+        }
+        .account-info-box h2 {
+            margin-top: 0;
+        }
+        .account-info-box form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .form-group {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            min-width: 82.5px; /* Ensure a consistent width for the label */
+            text-align: left; /* Align the text to the right */
+        }
+        .form-group input[type="text"] {
+            flex-grow: 1;
+            padding: 7.5px;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f0f0f0; /* Grey background */
+            color: #888; /* Grey text color */
+        }
+        .form-group input[type="text"]:disabled {
+            background-color: #e0e0e0; /* Lighter grey background */
+            color: #666; /* Darker grey text color */
+            cursor: not-allowed; /* Change cursor to indicate non-editable */
+        }
+        .edit-button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 7.5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .edit-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body class="dashboard-body">
+    <div class="dashboard-header">
+        <button class="dashboard-account-button" onclick="toggleMenu()">Account</button>
+        <div id="dashboard-account-dropdown" class="dashboard-account-dropdown">
+            <a href="/dashboard" class="dashboard-account-link">Home</a>
+            <a href="/manage-account" class="dashboard-account-link">Manage Account</a>
+            <a href="/logout" class="dashboard-account-link">Log out</a>
+        </div>
+    </div>
+    <div class="account-info-box">
+        <h2>Account Information</h2>
+        <form>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" value="{{ .username }}" disabled>
+                <button type="button" class="edit-button" id="editButton" onclick="toggleEdit()">Edit</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        function toggleMenu() {
+            var dropdown = document.getElementById("dashboard-account-dropdown");
+            dropdown.classList.toggle("show");
+        }
+
+        function toggleEdit() {
+            var usernameInput = document.getElementById("username");
+            var editButton = document.getElementById("editButton");
+
+            if (usernameInput.disabled) {
+                // Enable editing
+                usernameInput.disabled = false;
+                usernameInput.style.backgroundColor = '#fff'; // Remove grey background
+                usernameInput.style.color = '#000'; // Change text color to black
+                editButton.textContent = 'Confirm'; // Change button text to "Confirm"
+                usernameInput.focus(); // Focus on the input field
+            } else {
+                // Confirm changes
+                usernameInput.disabled = true;
+                usernameInput.style.backgroundColor = '#e0e0e0'; // Grey background
+                usernameInput.style.color = '#666'; // Darker grey text color
+                editButton.textContent = 'Edit'; // Change button text back to "Edit"
+            }
+        }
+    </script>
+</body>
+</html>
