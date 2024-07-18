@@ -20,7 +20,7 @@ func IsUsernameTaken(username string) bool {
 }
 
 func ValidatePassword(password string) bool {
-	re := regexp.MustCompile(`^[a-zA-Z0-9!@#$%^&*()\\\/;:]{6,}$`)
+	re := regexp.MustCompile(`^[a-zA-Z0-9!@#$%^&*()\\\/;:_\-\.,]{6,}$`)
 	return re.MatchString(password)
 }
 
