@@ -5,81 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Account</title>
     <link rel="stylesheet" href="/static/dashboard.css">
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            overflow: hidden; 
-        }
-        .account-info-box {
-            width: 360px;
-            margin: 100px auto 0; 
-            margin-top: 60px;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            text-align: center;
-        }
-        .account-info-box h2 {
-            margin-top: 0;
-        }
-        .account-info-box form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .form-group {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-        .form-group label {
-            min-width: 70px; 
-            text-align: left;
-            margin-right: 10px; 
-        }
-        .form-group input[type="text"] {
-            flex-grow: 1;
-            padding: 7.5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background-color: #f0f0f0; 
-            color: #888; 
-        }
-        .form-group input[type="text"]:disabled {
-            background-color: #e0e0e0; 
-            color: #666; 
-            cursor: not-allowed; 
-        }
-        .edit-button {
-            margin-left: 10px; 
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 7.5px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .edit-button:hover {
-            background-color: #0056b3;
-        }
-        .message {
-            margin-top: 10px;
-            font-size: 14px;
-            width: 100%; 
-            text-align: center; 
-        }
-        .message.error {
-            color: red;
-        }
-        .message.success {
-            color: green;
-        }
-    </style>
+    <link rel="stylesheet" href="/static/manage-account.css">
 </head>
 <body class="dashboard-body">
     <div class="dashboard-header">
@@ -101,60 +27,6 @@
             <div id="message" class="message"></div>
         </form>
     </div>
-    <script>
-        function toggleMenu() {
-            var dropdown = document.getElementById("dashboard-account-dropdown");
-            dropdown.classList.toggle("show");
-        }
-
-        function toggleEdit() {
-            var usernameInput = document.getElementById("username");
-            var editButton = document.getElementById("editButton");
-            var messageDiv = document.getElementById("message");
-
-            if (usernameInput.disabled) {
-                usernameInput.disabled = false;
-                usernameInput.style.backgroundColor = '#fff';
-                usernameInput.style.color = '#000'; 
-                editButton.textContent = 'Confirm'; 
-                setTimeout(function() {
-                    usernameInput.focus();
-                    usernameInput.setSelectionRange(usernameInput.value.length, usernameInput.value.length);
-                }, 0); 
-                messageDiv.textContent = ''; 
-                messageDiv.className = 'message'; 
-            } else {
-                updateUsername(usernameInput.value)
-                    .then(response => {
-                        if (response.message === "Username updated successfully") {
-                            messageDiv.textContent = "Success, username changed. Logging out...";
-                            messageDiv.className = 'message success';
-                            setTimeout(() => {
-                                window.location.href = "/logout"; 
-                            }, 2000); 
-                        } else {
-                            messageDiv.textContent = response.error;
-                            messageDiv.className = 'message error';
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        messageDiv.textContent = 'An error occurred. Please try again.';
-                        messageDiv.className = 'message error';
-                    });
-            }
-        }
-
-        async function updateUsername(newUsername) {
-            const response = await fetch('/update-username', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ new_username: newUsername })
-            });
-            return response.json();
-        }
-    </script>
+    <script src="/javascript/manage-account.js"></script>
 </body>
 </html>

@@ -7,6 +7,18 @@ body.dashboard-body {
     padding: 0;
     height: 100vh;
     position: relative;
+    overflow: hidden; 
+}
+
+.dashboard-main-box {
+    width: 360px;
+    margin: 100px auto 0; 
+    margin-top: 60px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
 }
 
 .dashboard-header {

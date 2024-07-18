@@ -19,6 +19,7 @@ func main() {
 	r.SetTrustedProxies(nil)
 	r.LoadHTMLGlob("templates/*")
 	r.Static("/static", "./static")
+	r.Static("/javascript", "./javascript")
 
 	r.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", nil)
