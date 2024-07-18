@@ -2,13 +2,11 @@ package handlers
 
 import (
 	"net/http"
-
 	"testProject/database"
 
 	"github.com/gin-gonic/gin"
 )
 
-// Register route handler
 func Register(c *gin.Context) {
 	username := c.PostForm("username")
 	password := c.PostForm("password")
@@ -20,10 +18,7 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	// Check if username already exists
-	var existingUser database.User
-	result := database.DB.Where("username = ?", username).First(&existingUser)
-	if result.Error == nil {
+	if IsUsernameTaken(username) {
 		c.HTML(http.StatusBadRequest, "register.html", gin.H{
 			"error": "Username already taken",
 		})
@@ -39,7 +34,7 @@ func Register(c *gin.Context) {
 	}
 
 	user := database.User{Username: username, Password: hashedPassword}
-	result = database.DB.Create(&user)
+	result := database.DB.Create(&user)
 	if result.Error != nil {
 		c.HTML(http.StatusInternalServerError, "register.html", gin.H{
 			"error": "Failed to register user",

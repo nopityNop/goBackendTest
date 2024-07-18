@@ -13,12 +13,14 @@ body.dashboard-body {
     width: 100%;
     display: flex;
     justify-content: flex-end;
-    padding: 20px;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
     box-sizing: border-box;
-    position: fixed; /* Changed from absolute to fixed */
+    position: fixed; 
     top: 0;
     right: 0;
-    z-index: 1000; /* Ensure the header is above other content */
+    z-index: 1000; 
 }
 
 .dashboard-account-button {
@@ -28,10 +30,10 @@ body.dashboard-body {
     border-radius: 4px;
     padding: 10px;
     cursor: pointer;
-    font-size: 16px; /* Updated font size */
-    width: 150px; /* Set a fixed width */
-    box-sizing: border-box; /* Ensure padding is included in the width */
-    text-align: center; /* Center the text */
+    font-size: 16px; 
+    width: 150px; 
+    box-sizing: border-box; 
+    text-align: center; 
 }
 
 .dashboard-account-button:hover {
@@ -42,13 +44,13 @@ body.dashboard-body {
     display: none;
     position: absolute;
     top: 100%;
-    right: 0;
+    right: 20;
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     z-index: 1001;
-    width: 150px; /* Ensure the dropdown width matches the button */
-    box-sizing: border-box; /* Ensure padding is included in the width */
+    width: 150px; 
+    box-sizing: border-box; 
 }
 
 .dashboard-account-link {
@@ -56,10 +58,10 @@ body.dashboard-body {
     padding: 10px;
     text-decoration: none;
     display: block;
-    font-size: 10px; /* Updated font size */
-    width: 100%; /* Ensure the link takes full width of the dropdown */
-    box-sizing: border-box; /* Ensure padding is included in the width */
-    text-align: center; /* Center the text */
+    font-size: 10px; 
+    width: 100%; 
+    box-sizing: border-box; 
+    text-align: center; 
 }
 
 .dashboard-account-link:hover {

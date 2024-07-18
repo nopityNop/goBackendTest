@@ -3,12 +3,20 @@ package handlers
 import (
 	"regexp"
 
+	"testProject/database"
+
 	"golang.org/x/crypto/bcrypt"
 )
 
 func ValidateUsername(username string) bool {
 	re := regexp.MustCompile(`^[a-zA-Z0-9]{4,16}$`)
 	return re.MatchString(username)
+}
+
+func IsUsernameTaken(username string) bool {
+	var existingUser database.User
+	result := database.DB.Where("username = ?", username).First(&existingUser)
+	return result.Error == nil
 }
 
 func ValidatePassword(password string) bool {

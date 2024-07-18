@@ -6,13 +6,19 @@
     <title>Manage Account</title>
     <link rel="stylesheet" href="/static/dashboard.css">
     <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; 
+        
         .account-info-box {
             width: 360px;
-            margin: 100px auto 0; /* Adjust margin for proper positioning */
+            margin: 100px auto 0; 
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 4px;
+            border-radius: 8px;
             text-align: center;
         }
         .account-info-box h2 {
@@ -30,24 +36,25 @@
             margin-bottom: 10px;
         }
         .form-group label {
-            min-width: 82.5px; /* Ensure a consistent width for the label */
-            text-align: left; /* Align the text to the right */
+            min-width: 70px; 
+            text-align: left;
+            margin-right: 10px; 
         }
         .form-group input[type="text"] {
             flex-grow: 1;
             padding: 7.5px;
-            margin-right: 5px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            background-color: #f0f0f0; /* Grey background */
-            color: #888; /* Grey text color */
+            background-color: #f0f0f0; 
+            color: #888; 
         }
         .form-group input[type="text"]:disabled {
-            background-color: #e0e0e0; /* Lighter grey background */
-            color: #666; /* Darker grey text color */
-            cursor: not-allowed; /* Change cursor to indicate non-editable */
+            background-color: #e0e0e0; 
+            color: #666; 
+            cursor: not-allowed; 
         }
         .edit-button {
+            margin-left: 10px; 
             background-color: #007BFF;
             color: white;
             border: none;
@@ -59,11 +66,23 @@
         .edit-button:hover {
             background-color: #0056b3;
         }
+        .message {
+            margin-top: 10px;
+            font-size: 14px;
+            width: 100%; 
+            text-align: center; 
+        }
+        .message.error {
+            color: red;
+        }
+        .message.success {
+            color: green;
+        }
     </style>
 </head>
 <body class="dashboard-body">
     <div class="dashboard-header">
-        <button class="dashboard-account-button" onclick="toggleMenu()">Account</button>
+        <button class="dashboard-account-button" onclick="toggleMenu()">{{ .username }}!</button>
         <div id="dashboard-account-dropdown" class="dashboard-account-dropdown">
             <a href="/dashboard" class="dashboard-account-link">Home</a>
             <a href="/manage-account" class="dashboard-account-link">Manage Account</a>
@@ -72,12 +91,13 @@
     </div>
     <div class="account-info-box">
         <h2>Account Information</h2>
-        <form>
+        <form onsubmit="return false;">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" value="{{ .username }}" disabled>
                 <button type="button" class="edit-button" id="editButton" onclick="toggleEdit()">Edit</button>
             </div>
+            <div id="message" class="message"></div>
         </form>
     </div>
     <script>
@@ -89,21 +109,50 @@
         function toggleEdit() {
             var usernameInput = document.getElementById("username");
             var editButton = document.getElementById("editButton");
+            var messageDiv = document.getElementById("message");
 
             if (usernameInput.disabled) {
-                // Enable editing
                 usernameInput.disabled = false;
-                usernameInput.style.backgroundColor = '#fff'; // Remove grey background
-                usernameInput.style.color = '#000'; // Change text color to black
-                editButton.textContent = 'Confirm'; // Change button text to "Confirm"
-                usernameInput.focus(); // Focus on the input field
+                usernameInput.style.backgroundColor = '#fff';
+                usernameInput.style.color = '#000'; 
+                editButton.textContent = 'Confirm'; 
+                setTimeout(function() {
+                    usernameInput.focus();
+                    usernameInput.setSelectionRange(usernameInput.value.length, usernameInput.value.length);
+                }, 0); 
+                messageDiv.textContent = ''; 
+                messageDiv.className = 'message'; 
             } else {
-                // Confirm changes
-                usernameInput.disabled = true;
-                usernameInput.style.backgroundColor = '#e0e0e0'; // Grey background
-                usernameInput.style.color = '#666'; // Darker grey text color
-                editButton.textContent = 'Edit'; // Change button text back to "Edit"
+                updateUsername(usernameInput.value)
+                    .then(response => {
+                        if (response.message === "Username updated successfully") {
+                            messageDiv.textContent = "Success, username changed. Logging out...";
+                            messageDiv.className = 'message success';
+                            setTimeout(() => {
+                                window.location.href = "/logout"; 
+                            }, 2000); 
+                        } else {
+                            messageDiv.textContent = response.error;
+                            messageDiv.className = 'message error';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        messageDiv.textContent = 'An error occurred. Please try again.';
+                        messageDiv.className = 'message error';
+                    });
             }
+        }
+
+        async function updateUsername(newUsername) {
+            const response = await fetch('/update-username', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ new_username: newUsername })
+            });
+            return response.json();
         }
     </script>
 </body>

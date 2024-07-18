@@ -35,5 +35,11 @@ func main() {
 	r.GET("/manage-account", middleware.AuthenticateJWT(), handlers.ManageAccount)
 	r.GET("/logout", handlers.Logout)
 
+	auth := r.Group("/")
+	auth.Use(middleware.AuthenticateJWT())
+	{
+		auth.POST("/update-username", handlers.UpdateUsername)
+	}
+
 	r.Run(":8080")
 }
